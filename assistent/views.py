@@ -2,7 +2,7 @@ from urllib import response
 from django.shortcuts import render
 from .forms import BlogForm
 from django.http import HttpResponse
-from ollama import chat  # ✅ Ensure `ollama` is properly installed and configured
+# from ollama import chat  # ✅ Ensure `ollama` is properly installed and configured
 
 def assistent(request):
     """
@@ -30,15 +30,15 @@ def assistent(request):
 
             # Call Ollama API
             try:
-                response = chat(
-                    model='llama3',  # ✅ Make sure this model is available in your Ollama setup
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ]
-                )
+                # response = chat(
+                #     model='llama3',  # ✅ Make sure this model is available in your Ollama setup
+                #     messages=[
+                #         {
+                #             "role": "user",
+                #             "content": prompt
+                #         }
+                #     ]
+                # )
                 result = response['message']['content']  # ✅ Fixed: Access response dict properly
             except Exception as e:
                 result = f"🚫 Error connecting to Ollama: {str(e)}"
