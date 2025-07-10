@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Assistant</title>
+  <script src="https://unpkg.com/htmx.org"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-white text-black font-sans flex items-center justify-center p-6">
+  <div class="w-full max-w-4xl border border-gray-300 rounded-xl p-8 flex flex-col md:flex-row gap-6">
+    
+    <!-- Form Section -->
+    <div class="md:w-1/2 w-full">
+      <h1 class="text-2xl font-semibold mb-4">AI Assistant</h1>
+      <form 
+        method="post"
+        hx-post="."
+        hx-target="#result"
+        hx-swap="innerHTML"
+        hx-indicator="#spinner"
+        class="space-y-4"
+      >
+        {% csrf_token %}
+
+        {{ form.topic.label_tag }}
+        {{ form.topic|add_class:"w-full p-2 border border-gray-300 rounded text-sm" }}
+
+        {{ form.text.label_tag }}
+        {{ form.text|add_class:"w-full p-2 border border-gray-300 rounded text-sm" }}
+
+        {{ form.tone.label_tag }}
+        {{ form.tone|add_class:"w-full p-2 border border-gray-300 rounded text-sm" }}
+
+        <div class="flex items-center gap-4 mt-2">
+          <button type="submit" class="bg-black text-white px-4 py-2 text-sm rounded">
+            Submit
+          </button>
+          <div id="spinner" class="htmx-indicator">
+            <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result" class="md:w-1/2 w-full border border-gray-300 rounded p-4 text-sm overflow-y-auto">
+      <!-- AI response appears here -->
+    </div>
+
+  </div>
+</body>
+</html>
